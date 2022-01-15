@@ -32,16 +32,15 @@ export class LoginFormComponent implements OnInit {
 
 
   loginSubmit(formData: PoPageLogin) {
+
     this.usuarioService.tentarLogar(formData.login, formData.password).subscribe(
       res => {
-
-        const access_token = JSON.stringify(res.access_token);
+        const access_token = JSON.stringify(res);
         localStorage.setItem('access_token', access_token)
         this.router.navigateByUrl('/home')
       },
       error => {
         console.log(error)
-        this.poNotificationService.error(error)
       }
     )
   }

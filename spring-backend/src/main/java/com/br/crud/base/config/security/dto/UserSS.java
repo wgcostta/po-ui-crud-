@@ -1,4 +1,4 @@
-package com.br.crud.base.config.security;
+package com.br.crud.base.config.security.dto;
 
 
 import com.br.crud.base.infra.repository.enums.Perfil;

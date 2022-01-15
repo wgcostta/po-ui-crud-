@@ -1,8 +1,10 @@
 package com.br.crud.base.config.security;
 
 
+import com.br.crud.base.config.security.dto.ResponseToken;
 import com.br.crud.base.model.dto.CredenciaisDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -63,8 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     private String json(String token) {
-
-        return "{\"access_token\": " + token + "} ";
+        return new Gson().toJson(new ResponseToken(token));
 
     }
 }
