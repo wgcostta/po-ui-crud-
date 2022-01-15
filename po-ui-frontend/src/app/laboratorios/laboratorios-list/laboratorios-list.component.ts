@@ -12,7 +12,7 @@ import { LaboratoriosService } from '../laboratorios.service';
 export class LaboratoriosListComponent implements OnInit {
   laboratorios: Laboratorios;
   form: FormGroup;
-  
+
   @ViewChild(PoModalComponent, { static: true }) modalSalvarLaboratorio: PoModalComponent;
   @ViewChild('modalExcluirLaboratorio', { static: true }) modalExcluirLaboratorio: PoModalComponent;
   @ViewChild('modalEditarLaboratorio', { static: true }) modalEditarLaboratorio: PoModalComponent;
@@ -97,7 +97,7 @@ export class LaboratoriosListComponent implements OnInit {
     },
     label: 'Confirmar'
   };
-  
+
   constructor(private service: LaboratoriosService, private poNotification: PoNotificationService, private formBuilder: FormBuilder) {
    }
 
@@ -161,8 +161,8 @@ export class LaboratoriosListComponent implements OnInit {
   perguntaEditarLaboratorio(lab: Laboratorios){
       this.laboratorios = lab;
       this.modalEditarLaboratorio.open();
-      this.form.get('id').setValue(this.laboratorios.id);
-      this.form.get('descricao').setValue(this.laboratorios.descricao);
+      this.form.get('id')?.setValue(this.laboratorios.id);
+      this.form.get('descricao')?.setValue(this.laboratorios.descricao);
   }
   editarCadastroLaboratorio(){
     this.laboratorios = this.form.value
@@ -170,23 +170,23 @@ export class LaboratoriosListComponent implements OnInit {
       res => {
         this.poNotification.success('Laboratório editado com Sucesso!');
         this.listarLaboratorios();
-        
+
       },
       error =>{
         this.poNotification.error('Não foi possível editar o Laboratório!');
       }
-    )  
+    )
     this.modalEditarLaboratorio.close();
   }
 
   limparForm(): void{
-    this.form.get('id').setValue(null);
-    this.form.get('descricao').setValue(null);
+    this.form.get('id')?.setValue(null);
+    this.form.get('descricao')?.setValue(null);
   }
 
-  
 
-  
+
+
 
 
 

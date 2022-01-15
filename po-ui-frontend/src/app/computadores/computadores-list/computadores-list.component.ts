@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { PoBreadcrumb, PoTableColumn, PoModalAction, PoModalComponent, PoNotificationService, PoTableColumnLabel, PoRadioGroupOption, PoSelectOption} from '@po-ui/ng-components';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PoBreadcrumb, PoTableColumn, PoModalAction, PoModalComponent, PoNotificationService, PoTableColumnLabel, PoRadioGroupOption, PoSelectOption } from '@po-ui/ng-components';
 import { Laboratorios } from 'src/app/laboratorios/Laboratorios';
 import { LaboratoriosService } from 'src/app/laboratorios/laboratorios.service';
 import { Computadores } from '../Computadores';
-import {ComputadoresService} from '../computadores.service';
+import { ComputadoresService } from '../computadores.service';
 
 @Component({
   selector: 'app-computadores-list',
@@ -17,7 +17,7 @@ export class ComputadoresListComponent implements OnInit {
   laboratorio: Laboratorios;
   laboratorios: Laboratorios[] = [];
 
-  
+
   public readonly columns: Array<PoTableColumn> = [
     {
       property: 'id',
@@ -33,8 +33,8 @@ export class ComputadoresListComponent implements OnInit {
       property: 'descLaboratorio',
       label: 'Laboratório',
       type: 'string',
-      
-  },
+
+    },
   ];
 
   items: Array<any> = [];
@@ -101,18 +101,18 @@ export class ComputadoresListComponent implements OnInit {
   @ViewChild(PoModalComponent, { static: true }) modalSalvarComputador: PoModalComponent;
   @ViewChild('modalEdicaoComputador', { static: true }) modalEdicaoComputador: PoModalComponent;
   @ViewChild('modalExcluirComputador', { static: true }) modalExcluirComputador: PoModalComponent;
-  
+
 
   readonly breadcrump: PoBreadcrumb = {
-    items:[
-      {label: 'Home', link:'/'},
-      {label: 'Computadores', link: '/computadores'},]
+    items: [
+      { label: 'Home', link: '/' },
+      { label: 'Computadores', link: '/computadores' },]
   }
 
   constructor(private service: ComputadoresService, private formBuilder: FormBuilder, private poNotification: PoNotificationService,
-              private laboratorioService: LaboratoriosService) {
+    private laboratorioService: LaboratoriosService) {
     this.computador = new Computadores();
-   }
+  }
 
   ngOnInit(): void {
     this.iniciarForm();
@@ -120,98 +120,99 @@ export class ComputadoresListComponent implements OnInit {
     this.listarLaboratorios();
   }
 
-  iniciarForm(): void{
+  iniciarForm(): void {
     this.form = this.formBuilder.group({
-      id : [''],
-      descricao : ['',Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)]),],
+      id: [''],
+      descricao: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)]),],
       idLaboratorio: ['']
     })
   }
 
-  listarComputadores(): void{
-    
-    this.service.listarTodos().subscribe(res =>{this.items = res});
+  listarComputadores(): void {
+
+    this.service.listarTodos().subscribe(res => { this.items = res });
   }
 
-  listarLaboratorios(): void{
-    this.laboratorioService.listarTodos().subscribe(res=>{this.laboratorios = res})
+  listarLaboratorios(): void {
+    this.laboratorioService.listarTodos().subscribe(res => { this.laboratorios = res })
   }
 
-  novoComputador(){
-      this.modalSalvarComputador.open();
+  novoComputador() {
+    this.modalSalvarComputador.open();
   }
-  perguntaExcluirComputador(com: Computadores){
+  perguntaExcluirComputador(com: Computadores) {
     this.computador = com;
     this.modalExcluirComputador.open();
-  
+
   }
-  excluirComputador(){
+  excluirComputador() {
     this.service.deletar(this.computador.id).subscribe(
-      res=>{
+      res => {
         this.poNotification.success("Computador excluído com sucesso!")
         this.listarComputadores();
       },
-      error=>{
+      error => {
         this.poNotification.error("Não foi possível excluir o computador!")
       }
     )
     this.modalExcluirComputador.close();
-    
+
   }
-  cancelarExcluirComputador(){
+  cancelarExcluirComputador() {
     this.modalExcluirComputador.close();
   }
-  perguntaCancelarEdicao(){
+  perguntaCancelarEdicao() {
     this.modalEdicaoComputador.close();
     this.ngOnInit();
-    
+
   }
 
-  salvarComputador(){
+  salvarComputador() {
     this.form.reset
     this.computador = this.form.value;
-    this.service.salvar(this.computador).toPromise().then(
+    this.service.salvar(this.computador).subscribe(
+
       res => {
         this.computador = res;
         this.poNotification.success('Computador salvo com sucesso!');
         this.listarComputadores();
       },
-      error =>{
+      error => {
         this.poNotification.error('Não foi possível salvar o novo computador');
       }
     )
     this.modalSalvarComputador.close();
-    
-    
+
+
   }
 
-  perguntaEditarComputador(com: Computadores){
+  perguntaEditarComputador(com: Computadores) {
     this.computador = com;
-    this.form.get('id').setValue(this.computador.id);
-    this.form.get('descricao').setValue(this.computador.descricao);
-    this.form.get('idLaboratorio').setValue(this.computador.idLaboratorio);
+    this.form.get('id')?.setValue(this.computador.id);
+    this.form.get('descricao')?.setValue(this.computador.descricao);
+    this.form.get('idLaboratorio')?.setValue(this.computador.idLaboratorio);
     this.modalEdicaoComputador.open();
   }
-    
-  editarComputador(){
+
+  editarComputador() {
     this.computador = this.form.value;
-    this.service.salvar(this.computador).toPromise().then(
+    this.service.salvar(this.computador).subscribe(
       res => {
         this.computador = res;
         this.poNotification.success('Computador editado com sucesso!');
         this.listarComputadores();
       },
-      error =>{
+      error => {
         this.poNotification.error('Não foi possível editar computador');
       }
     )
     this.modalEdicaoComputador.close();
   }
 
-  limparForm(): void{
-    this.form.get('computador.id').setValue(null);
-    this.form.get('computador.descricao').setValue(null);
-    this.form.get('computador.idLaboratorio').setValue('');
+  limparForm(): void {
+    this.form.get('computador.id')?.setValue(null);
+    this.form.get('computador.descricao')?.setValue(null);
+    this.form.get('computador.idLaboratorio')?.setValue('');
   }
 
 
