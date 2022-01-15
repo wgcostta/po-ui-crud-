@@ -1,0 +1,46 @@
+<po-page-dynamic-search p-title="Computadores" 
+[p-breadcrumb]="breadcrump">
+<div class="po-pb-2">
+    <div class="po-mb-1">
+        <po-button p-label="Novo Computador" (p-click)="novoComputador()" p-icon="add"></po-button>
+      </div>
+    <po-table p-container="shadow" [p-columns]="columns" [p-items]="items" [p-actions]="actionsTable"></po-table>
+</div>
+</po-page-dynamic-search>
+
+<po-modal #modalSalvarComputador p-title="Novo Computador" [p-primary-action]="salvarCadastro" [p-secondary-action]="cancelarCadastro">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
+      <select formControlName="idLaboratorio" class="form-control">
+        <option value="">Selecione um laboratório...</option>
+        <option *ngFor="let lab of laboratorios" [ngValue]="lab.id">
+          {{lab.descricao}}
+      </option>
+      </select>
+    </div>
+  </form>
+</po-modal>
+
+<po-modal #modalEdicaoComputador p-title="Editar Computador" [p-primary-action]="editarCadastroComputador" [p-secondary-action]="cancelarCadastroComputador">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-1" formControlName="id" p-label="ID" p-disabled> </po-input>
+      <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
+      <select formControlName="idLaboratorio" class="form-control">
+        <option value="">Selecione um laboratório...</option>
+        <option *ngFor="let lab of laboratorios" [ngValue]="lab.id">
+          {{lab.descricao}}
+      </option>
+      </select>
+    </div>
+  </form>
+</po-modal>
+
+<po-modal #modalExcluirComputador p-title="Excluir Computador" [p-primary-action]="excluirCadastroComputador" [p-secondary-action]="cancelarExclusaoComputador">
+  <form [formGroup] = "form">
+    <div class="po-row">
+      <p>Deseja excluir o computador {{computador.id}}?</p>
+    </div>
+  </form>
+</po-modal>

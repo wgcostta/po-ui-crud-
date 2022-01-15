@@ -1,0 +1,40 @@
+<po-page-dynamic-search p-title="Usuários" 
+[p-breadcrumb]="breadcrump">
+<div class="po-pb-2">
+    <div class="po-mb-1">
+        <po-button p-label="Novo Usuário" (p-click)="novoUsuario()" p-icon="add"></po-button>
+      </div>
+    <po-table p-container="shadow" [p-columns]="columns" [p-items]="items" [p-actions]="actionsTable"></po-table>
+</div>
+</po-page-dynamic-search>
+
+<po-modal #modalSalvarUsuario p-title="Novo Usuário" [p-primary-action]="salvarCadastro" [p-secondary-action]="cancelarCadastro">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-12" formControlName="nome" p-icon="po-icon-user" p-label="Nome"> </po-input>
+    </div>
+    <div class="po-row">
+      <po-email class="po-md-6" formControlName="email" p-label="E-mail"></po-email>
+      <po-password class="po-md-6" formControlName="senha" p-icon="po-icon-password" p-password p-label="Senha"> </po-password>
+    </div>
+  </form>
+</po-modal>
+
+<po-modal #modalEditarUsuario p-title="Editar Usuário" [p-primary-action]="salvarEditar" [p-secondary-action]="cancelarEditar">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-2" formControlName="id" p-label="ID" p-disabled></po-input>
+      <po-input class="po-md-10" formControlName="nome" p-icon="po-icon-user" p-label="Nome"> </po-input>
+    </div>
+    <div class="po-row">
+      <po-email class="po-md-6" formControlName="email" p-label="E-mail"></po-email>
+      <po-password class="po-md-6" formControlName="senha" p-icon="po-icon-password" p-password p-label="Senha"> </po-password>
+    </div>
+  </form>
+</po-modal>
+
+<po-modal #modalExcluirUsuario p-title="Excluir Usuário" [p-primary-action]="excluirUsuario" [p-secondary-action]="cancelarExcluir">
+  <form [formGroup]="form">
+      <p>Deseja excluir o usuário {{usuario.nome}}</p>
+  </form>
+</po-modal>

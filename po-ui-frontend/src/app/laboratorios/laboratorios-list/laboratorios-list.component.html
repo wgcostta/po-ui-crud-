@@ -1,0 +1,37 @@
+<po-page-dynamic-search p-title="Laboratórios" 
+[p-breadcrumb]="breadcrump">
+<div class="po-pb-2">
+    <div class="po-mb-1">
+        <po-button p-label="Novo Laboratório" (p-click)="novoLaboratorio()" p-icon="add"></po-button>
+      </div>
+    <po-table p-container="shadow" [p-columns]="columns" [p-items]="items" [p-actions]="actionsTable"></po-table>
+</div>
+</po-page-dynamic-search>
+
+<po-modal #modalSalvarLaboratorio p-title="Novo Laboratório" [p-primary-action]="salvarCadastro" [p-secondary-action]="cancelarCadastro">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-2" formControlName="id" p-label="Código" p-disabled> </po-input>
+      <po-input class="po-md-10" formControlName="descricao" p-label="Descrição"> </po-input>
+    </div>
+  </form>
+</po-modal>
+
+<po-modal #modalExcluirLaboratorio p-title="Excluir Laboratório" [p-primary-action]="excluirLaboratorio" [p-secondary-action]="cancelarExclusaoLaboratorio">
+  <form [formGroup]="form">
+    <div class="po-row">
+        <p>Deseja excluir o Laboratório {{laboratorios?.id}}?</p>
+    </div>
+  </form>
+</po-modal>
+
+<po-modal #modalEditarLaboratorio p-title="Editar Laboratório" [p-primary-action]="editarLaboratorio" [p-secondary-action]="cancelarEdicaoLaboratorio">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-2" formControlName="id" p-label="ID" p-disabled> </po-input>
+      <po-input class="po-md-10" formControlName="descricao" p-label="Descrição"> </po-input>
+    </div>
+  </form>
+</po-modal>
+
+

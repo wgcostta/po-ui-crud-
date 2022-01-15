@@ -1,0 +1,64 @@
+<po-page-dynamic-search p-title="Serviços" [p-breadcrumb]="breadcrump">
+    <div class="po-pb-2">
+        <div class="po-mb-1">
+            <po-button p-label="Salvar Serviço" (p-click)="salvarServico()" p-icon="add">
+            </po-button>
+            <po-button class="ml-2" p-label="Filtros" [p-disabled]="false" (p-click)="perguntaFiltroStatus()" p-type="default"></po-button>
+        </div>
+        <form [formGroup]="form">
+            <po-widget>
+                <div class="po-row">
+                    <select class="po-md-4" class="form-control mt-3" p-label="Laboratório" formControlName="idLaboratorio" (change)="listarCompPorLab()">
+            <option value="">Selecione um
+              laboratório...
+            </option>
+            <option *ngFor="let lab of laboratorios"
+              [ngValue]="lab.id">
+              {{lab.descricao}}
+            </option>
+          </select>
+                    <select class="po-md-4" class="form-control mt-3 mb-3" p-label="Computador" formControlName="idComputador">
+            <option value="">Selecione um
+              computador...
+            </option>
+            <option *ngFor="let comp of computadores"
+              [ngValue]="comp.id">
+              {{comp.descricao}}
+            </option>
+          </select>
+
+                </div>
+                <div class="po-row">
+                    <po-textarea class="po-sm-12" formControlName="descricao" p-label="Descrição" [p-rows]="3" [p-required]="true"></po-textarea>
+                </div>
+            </po-widget>
+        </form>
+        <po-table p-container="shadow" [p-columns]="columns" [p-items]="items" [p-actions]="actionsTable">
+        </po-table>
+    </div>
+
+</po-page-dynamic-search>
+
+<po-modal #modalFiltro p-title="Filtros">
+    <div class="po-mb-1">
+        <po-button p-label="Serviços Pendentes" (p-click)='listarServicosPorStatusP()'>
+        </po-button>
+        <po-button p-label="Serviços Concluídos" (p-click)='listarServicosPorStatusC()'>
+        </po-button>
+    </div>
+</po-modal>
+
+<po-modal #modalDetalhesServico p-title="Detalhes">
+    {{servico.descricao}}
+</po-modal>
+
+<po-modal #modalAlterarStatus p-title="Alterar Status" [p-primary-action]="abreObservacaoStatus" [p-secondary-action]="cancelarAtualizarStatus">
+    Deseja alterar o status do serviço de código: {{servico.id}}?
+</po-modal>
+
+<po-modal #modalObservacaoStatus [p-primary-action]="confirmaAtualizarStatus" [p-secondary-action]="cancelarObservacaoStatus">
+    <form [formGroup]="form">
+        <po-textarea class="po-sm-12" formControlName="observacao" p-label="Observação" [p-rows]="1" [p-required]="true">
+        </po-textarea>
+    </form>
+</po-modal>
