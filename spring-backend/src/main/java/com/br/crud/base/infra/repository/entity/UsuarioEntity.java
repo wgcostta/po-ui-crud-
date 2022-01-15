@@ -1,6 +1,7 @@
 package com.br.crud.base.infra.repository.entity;
 
 
+import com.br.crud.base.infra.repository.enums.Perfil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter@Setter
@@ -24,6 +27,13 @@ public class UsuarioEntity{
     @Column(unique = true)
     private String email;
     @NotNull
-    private String senha;
+    private String password;
 
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable(name="PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
+    public String getUsername() {
+        return email;
+    }
 }

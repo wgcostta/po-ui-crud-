@@ -1,4 +1,3 @@
 <form [formGroup]="form">
-        <po-page-login  (p-login-submit)="loginSubmit($event)"></po-page-login>
+    <po-page-login (p-login-submit)="loginSubmit($event)" p-register-url="/string" [p-recovery]="this.myRecovery.bind(this)"></po-page-login>
 </form>
-

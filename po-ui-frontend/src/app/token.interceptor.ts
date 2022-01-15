@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor() { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const tokenString = localStorage.getItem('access_token');
 
     const url = request.url;
 
-    if(tokenString && !url.endsWith('/oauth/token')){
+    if (tokenString && !url.endsWith('/login')) {
       const token = JSON.parse(tokenString);
       const jwt = token.access_token;
       request = request.clone({
@@ -29,7 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 
- 
-  
+
+
 
 }

@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UsuarioController {
     private final UsuarioRepository usuarioRepository;

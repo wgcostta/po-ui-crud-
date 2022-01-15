@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JWTUtil jwtUtil;
 
     private static final String[] PUBLIC_MATCHERS = {
-            "/h2-console/**",
+            "/h2-console/**","/login","/oauth/token"
     };
 
     private static final String[] PUBLIC_MATCHERS_GET = {
@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     private static final String[] PUBLIC_MATCHERS_POST = {
-            "/api/v1/usuario",
+            "/users"
     };
 
     @Override

@@ -1,7 +1,7 @@
-import { HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Usuarios} from './Usuarios';
+import { Usuarios } from './Usuarios';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt'
 
@@ -10,54 +10,54 @@ import { JwtHelperService } from '@auth0/angular-jwt'
 })
 export class UsuariosService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   tokenURL: string = environment.API_URL + environment.obterTokenUrl
   clientID: string = environment.clientId;
   clientSecret: string = environment.clientSecret;
   jwtHelper: JwtHelperService = new JwtHelperService();
 
-  obterToken(){
+  obterToken() {
     const tokenString = localStorage.getItem('access_token');
-    if(tokenString){
-      const token =JSON.parse(tokenString).access_token;
+    if (tokenString) {
+      const token = JSON.parse(tokenString).access_token;
       return token;
     }
     return null;
   }
 
-  isAuthenticated(): boolean{
+  isAuthenticated(): boolean {
     const token = this.obterToken();
-    if(token){
+    if (token) {
       const expired = this.jwtHelper.isTokenExpired(token);
       return !expired
     }
     return false
   }
-  
-  listarTodos(): Observable<Usuarios[]>{
-    return this.http.get<Usuarios[]>(environment.API_URL+'/usuarios')
+
+  listarTodos(): Observable<Usuarios[]> {
+    return this.http.get<Usuarios[]>(environment.API_URL + '/usuarios')
   }
 
-  salvarUsuario(usuarios : Usuarios): Observable<Usuarios>{
-    return this.http.post<Usuarios>(environment.API_URL+'/usuarios', usuarios)
+  salvarUsuario(usuarios: Usuarios): Observable<Usuarios> {
+    return this.http.post<Usuarios>(environment.API_URL + '/usuarios', usuarios)
   }
 
-  excluir(id: number): Observable<any>{
-    return this.http.delete<any>(environment.API_URL+`/usuarios/${id}`)
-  }
-  
-  getUsuarioByEmail() :Observable<Usuarios>{
-    return this.http.get<Usuarios>(environment.API_URL+`/usuarios?email=`+this.getUsuarioAutenticado());
+  excluir(id: number): Observable<any> {
+    return this.http.delete<any>(environment.API_URL + `/usuarios/${id}`)
   }
 
-  deslogar(){
+  getUsuarioByEmail(): Observable<Usuarios> {
+    return this.http.get<Usuarios>(environment.API_URL + `/usuarios?email=` + this.getUsuarioAutenticado());
+  }
+
+  deslogar() {
     localStorage.removeItem('access_token');
   }
 
-  getUsuarioAutenticado(){
+  getUsuarioAutenticado() {
     const token = this.obterToken();
-    if(token){
+    if (token) {
       const usuario = this.jwtHelper.decodeToken(token).user_name;
       return usuario;
     }
@@ -65,16 +65,16 @@ export class UsuariosService {
   }
 
 
-  tentarLogar(username: string, password: string) : Observable<any>{
-    const params = new HttpParams()
-                        .set('username',username)
-                        .set('password',password)
-                        .set('grant_type','password');
-    const headers = { 
+  tentarLogar(email: string, password: string): Observable<any> {
+
+    const headers = {
       'Authorization': 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`),
-      'Content-Type':'application/x-www-form-urlencoded'
-    }                    
-    return this.http.post( this.tokenURL, params.toString(), { headers })
-    
+      'Content-Type': 'application/json'
+    }
+    return this.http.post(this.tokenURL, {
+      email: email,
+      password: password
+    }, { headers })
+
   }
 }
