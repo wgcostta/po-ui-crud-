@@ -9,18 +9,22 @@ import { ServicosListComponent } from './servicos/servicos-list/servicos-list.co
 import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
 import { AuthGuard } from './auth.guard';
 import { HomeComponent } from './home/home.component';
+import { CreatedUserComponent } from './created-user/created-user.component';
 const routes: Routes = [
-  
 
-  {path:'login',component:LoginFormComponent},
-  {path:'', component:LayoutComponent,canActivate: [AuthGuard],children:[
-    {path:'computadores',component:ComputadoresListComponent},
-    {path:'laboratorios',component:LaboratoriosListComponent},
-    {path:'servicos',component:ServicosListComponent},
-    {path:'usuarios',component:UsuariosListComponent},
-    {path:'home',component:HomeComponent},
-    {path: '', redirectTo:'/home', pathMatch: 'full'}
-  ]}
+
+  { path: 'login', component: LoginFormComponent },
+  {
+    path: '', component: LayoutComponent, canActivate: [AuthGuard], children: [
+      { path: 'computadores', component: ComputadoresListComponent },
+      { path: 'laboratorios', component: LaboratoriosListComponent },
+      { path: 'servicos', component: ServicosListComponent },
+      { path: 'usuarios', component: UsuariosListComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'user', component: CreatedUserComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' }
+    ]
+  }
 ];
 
 @NgModule({
