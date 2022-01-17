@@ -1,0 +1,59 @@
+<po-page-default [p-actions]="newActions"
+    p-title="User Profile" [p-breadcrumb]="breadcrumb">
+    <form [formGroup]="form">
+        <div class="po-row">
+            <div class="po-row">
+                <po-input class="po-md-6"
+                    [p-no-autocomplete]="true"
+                    [p-minlength]="6" p-icon="po-icon-user"
+                    name="nome" formControlName="nome"
+                    p-label="Nome"> </po-input>
+                <po-email class="po-md-6"
+                    [p-no-autocomplete]="true"
+                    formControlName="email"
+                    p-label="E-mail">
+                </po-email>
+                <!-- <po-datepicker class="po-md-6" name="birthday" formControlName="birthday" p-clean p-format="dd/mm/yyyy"
+                    p-label="Birthday Date" p-required>
+                </po-datepicker> -->
+
+
+
+            </div>
+
+            <div class="po-row">
+                <!-- <po-select class="po-md-6" name="country" formControlName="country" [p-disabled]="true"
+                    p-label="Country" [p-options]="countryOptions">
+                </po-select>
+
+                <po-select class="po-md-6" name="city" formControlName="city" [p-disabled p-label="City"
+                    [p-options]="cityOptions">]="true"
+                </po-select>
+
+                <po-input class="po-md-12" name="phoneNumber" formControlName="phoneNumber" p-label="Phone Number"
+                    p-mask="(99)99999-9999">
+                </po-input> -->
+
+                <po-password class="po-md-6"
+                    [p-no-autocomplete]="true"
+                    formControlName="senha"
+                    p-icon="po-icon-password" p-password
+                    p-error-pattern="invalid password"
+                    p-required [p-minlength]="6"
+                    p-label="Senha"> </po-password>
+                <po-password class="po-md-6"
+                    [p-no-autocomplete]="true"
+                    formControlName="senhaConfirmacao"
+                    p-icon="po-icon-password" p-password
+                    p-error-pattern="invalid password"
+                    p-required [p-minlength]="6"
+                    p-label="Confirme a senha">
+                </po-password>
+
+            </div>
+
+
+
+        </div>
+    </form>
+</po-page-default>

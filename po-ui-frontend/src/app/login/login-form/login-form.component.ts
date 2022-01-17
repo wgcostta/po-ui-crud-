@@ -17,7 +17,9 @@ export class LoginFormComponent implements OnInit {
   exceededAttempts: number;
 
 
-  constructor(private usuarioService: UsuariosService, private formBuilder: FormBuilder, private poNotificationService: PoNotificationService, private router: Router) { }
+  constructor(private usuarioService: UsuariosService,
+    private formBuilder: FormBuilder,
+    private poNotificationService: PoNotificationService, private router: Router) { }
 
   ngOnInit(): void {
     this.iniciarForm();
@@ -46,7 +48,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   myRecovery(event: any) {
-
+    console.log("myRecovery")
   }
 
 }

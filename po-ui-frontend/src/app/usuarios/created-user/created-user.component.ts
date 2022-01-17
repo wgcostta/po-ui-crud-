@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { PoPageChangePasswordComponent } from '@po-ui/ng-templates';
 
-import { PoBreadcrumb, PoNotificationService, PoSelectOption } from '@po-ui/ng-components';
-import { UsuariosService } from '../usuarios/usuarios.service';
+import { PoBreadcrumb, PoNotificationService, PoPageAction, PoSelectOption } from '@po-ui/ng-components';
+import { UsuariosService } from '../usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuarios as Usuario } from '../usuarios/Usuarios';
+import { Usuarios as Usuario } from '../Usuarios';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-created-user',
   templateUrl: './created-user.component.html',
@@ -18,6 +19,7 @@ export class CreatedUserComponent implements OnInit {
   url: string;
   usuario: Usuario;
   changePasswordScreen = false;
+  newActions: Array<PoPageAction>;
 
   public readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Home', link: '/documentation/po-page-change-password' }, { label: 'Profile' }]
@@ -28,16 +30,42 @@ export class CreatedUserComponent implements OnInit {
   public readonly countryOptions: Array<PoSelectOption> = [{ label: 'Brazil', value: 'br' }];
   constructor(private usuariosService: UsuariosService, 
     private formBuilder: FormBuilder,
-    private poNotification: PoNotificationService) { }
+    private poNotification: PoNotificationService,
+    private router: Router) { }
 
   ngOnInit() {
     this.initialize();
+    this.newActions = [
+      {
+        label: "Salvar",
+        action: this.salvarUsuario.bind(this),
+        icon: 'po-icon-plus',
+        disabled: () => this.isFormValid,
+      },
+      {
+        label: "Cancelar",
+        action: this.cancelar.bind(this),
+      },
+    ];
+
+    // this.form.statusChanges.subscribe(() => {
+    //   if (this.form.valid) {
+        
+    //     this.habilitaBotaoDeAcao();
+    //   }
+    // });
+
+  }
+
+  get isFormValid(): boolean{
+    return !(this.form.valid && this.form.get("senha")?.value
+    == this.form.get("senhaConfirmacao")?.value);
   }
 
   initialize() {
     this.form = this.formBuilder.group({
       id: [''],
-      email: [''],
+      email: ['', Validators.required,],
       nome: [
         '',
         Validators.compose([
@@ -46,9 +74,11 @@ export class CreatedUserComponent implements OnInit {
           Validators.maxLength(50),
         ]),
       ],
-      senha: [''],
+      senha: ['', Validators.required,],
+      senhaConfirmacao: ['', Validators.required,],
     });
     this.url = '/home';
+
   }
 
   onSubmit() {
@@ -59,8 +89,8 @@ export class CreatedUserComponent implements OnInit {
     this.changePasswordScreen = true;
   }
 
-  showProfileScreen() {
-    this.changePasswordScreen = false;
+  cancelar() {
+    this.router.navigateByUrl("/home")
   }
 
   salvarUsuario() {

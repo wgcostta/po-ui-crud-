@@ -17,7 +17,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
     const url = request.url;
 
-    if (tokenString && !url.endsWith('/login')) {
+    if (tokenString && !url.endsWith('/login') ) {
+
       const token = JSON.parse(tokenString);
       const jwt = token.access_token;
       request = request.clone({
