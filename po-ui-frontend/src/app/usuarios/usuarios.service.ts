@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuarios } from './Usuarios';
+import { Usuario } from './Usuarios';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt'
 
@@ -35,20 +35,20 @@ export class UsuariosService {
     return false
   }
 
-  listarTodos(): Observable<Usuarios[]> {
-    return this.http.get<Usuarios[]>(environment.API_URL + '/usuarios')
+  listarTodos(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(environment.API_URL + '/users')
   }
 
-  salvarUsuario(usuarios: Usuarios): Observable<Usuarios> {
-    return this.http.post<Usuarios>(environment.API_URL + '/usuarios', usuarios)
+  salvarUsuario(usuarios: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(environment.API_URL + '/users', usuarios)
   }
 
   excluir(id: number): Observable<any> {
-    return this.http.delete<any>(environment.API_URL + `/usuarios/${id}`)
+    return this.http.delete<any>(environment.API_URL + `/users/${id}`)
   }
 
-  getUsuarioByEmail(): Observable<Usuarios> {
-    return this.http.get<Usuarios>(environment.API_URL + `/usuarios?email=` + this.getUsuarioAutenticado());
+  getUsuarioByEmail(): Observable<Usuario> {
+    return this.http.get<Usuario>(environment.API_URL + `/users?email=` + this.getUsuarioAutenticado());
   }
 
   deslogar() {

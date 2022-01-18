@@ -7,7 +7,7 @@ import {
   PoNotificationService,
   PoTableColumn,
 } from '@po-ui/ng-components';
-import { Usuarios } from '../Usuarios';
+import { Usuario } from '../Usuarios';
 import { UsuariosService } from '../usuarios.service';
 @Component({
   selector: 'app-usuarios-list',
@@ -16,8 +16,8 @@ import { UsuariosService } from '../usuarios.service';
 })
 export class UsuariosListComponent implements OnInit {
   form: FormGroup;
-  usuario: Usuarios;
-  usuarios: Usuarios[];
+  usuario: Usuario;
+  usuarios: Usuario[];
 
   @ViewChild('modalSalvarUsuario', { static: true })
   modalSalvarUsuario: PoModalComponent;
@@ -31,7 +31,7 @@ export class UsuariosListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private poNotification: PoNotificationService
   ) {
-    this.usuario = new Usuarios();
+    this.usuario = new Usuario();
   }
 
   readonly breadcrump: PoBreadcrumb = {
@@ -58,7 +58,7 @@ export class UsuariosListComponent implements OnInit {
           Validators.maxLength(50),
         ]),
       ],
-      senha: [''],
+      password: [''],
     });
   }
 
@@ -75,16 +75,16 @@ export class UsuariosListComponent implements OnInit {
     });
   }
 
-  perguntaEditarUsuario(usuarios: Usuarios) {
+  perguntaEditarUsuario(usuarios: Usuario) {
     this.usuario = usuarios;
     this.form.get('id')?.setValue(this.usuario.id);
     this.form.get('nome')?.setValue(this.usuario.nome);
     this.form.get('email')?.setValue(this.usuario.email);
-    this.form.get('senha')?.setValue(this.usuario.senha);
+    this.form.get('password')?.setValue(this.usuario.password);
     this.modalEditarUsuario.open();
   }
 
-  perguntaExcluirUsuario(usuarios: Usuarios) {
+  perguntaExcluirUsuario(usuarios: Usuario) {
     this.usuario = usuarios;
     this.modalExcluirUsuario.open();
   }

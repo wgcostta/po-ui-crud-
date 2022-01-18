@@ -14,7 +14,7 @@ import { Computadores } from 'src/app/computadores/Computadores';
 import { ComputadoresService } from 'src/app/computadores/computadores.service';
 import { Laboratorios } from 'src/app/laboratorios/Laboratorios';
 import { LaboratoriosService } from 'src/app/laboratorios/laboratorios.service';
-import { Usuarios } from 'src/app/usuarios/Usuarios';
+import { Usuario } from 'src/app/usuarios/Usuarios';
 import { UsuariosService } from 'src/app/usuarios/usuarios.service';
 import { ServicoConcluido } from '../ServicoConcluido';
 import { Servicos } from '../Servicos';
@@ -31,7 +31,7 @@ export class ServicosListComponent implements OnInit {
   servicoConcluido: ServicoConcluido;
   laboratorios: Laboratorios[] = [];
   computadores: Computadores[] = [];
-  usuario: Usuarios;
+  usuario: Usuario;
   itemSelect: any;
   idLaboratorio: any;
   constructor(

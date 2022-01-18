@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PoDialogService, PoNotificationService } from '@po-ui/ng-components';
 import { PoPageLogin } from '@po-ui/ng-templates';
-import { Usuarios } from 'src/app/usuarios/Usuarios';
+import { Usuario } from 'src/app/usuarios/Usuarios';
 import { UsuariosService } from 'src/app/usuarios/usuarios.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { UsuariosService } from 'src/app/usuarios/usuarios.service';
 })
 export class LoginFormComponent implements OnInit {
   form: FormGroup;
-  usuario: Usuarios;
+  usuario: Usuario;
   exceededAttempts: number;
 
 

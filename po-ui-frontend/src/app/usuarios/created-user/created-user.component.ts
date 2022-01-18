@@ -5,7 +5,7 @@ import { PoPageChangePasswordComponent } from '@po-ui/ng-templates';
 import { PoBreadcrumb, PoNotificationService, PoPageAction, PoSelectOption } from '@po-ui/ng-components';
 import { UsuariosService } from '../usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuarios as Usuario } from '../Usuarios';
+import { Usuario as Usuario } from '../Usuarios';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-created-user',
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./created-user.component.css']
 })
 export class CreatedUserComponent implements OnInit {
-  
+
   @ViewChild(PoPageChangePasswordComponent) changePassword: PoPageChangePasswordComponent;
   form: FormGroup;
   url: string;
@@ -28,7 +28,7 @@ export class CreatedUserComponent implements OnInit {
   public readonly cityOptions: Array<PoSelectOption> = [{ label: 'São Paulo', value: 'sp' }];
 
   public readonly countryOptions: Array<PoSelectOption> = [{ label: 'Brazil', value: 'br' }];
-  constructor(private usuariosService: UsuariosService, 
+  constructor(private usuariosService: UsuariosService,
     private formBuilder: FormBuilder,
     private poNotification: PoNotificationService,
     private router: Router) { }
@@ -50,16 +50,16 @@ export class CreatedUserComponent implements OnInit {
 
     // this.form.statusChanges.subscribe(() => {
     //   if (this.form.valid) {
-        
+
     //     this.habilitaBotaoDeAcao();
     //   }
     // });
 
   }
 
-  get isFormValid(): boolean{
-    return !(this.form.valid && this.form.get("senha")?.value
-    == this.form.get("senhaConfirmacao")?.value);
+  get isFormValid(): boolean {
+    return !(this.form.valid && this.form.get("password")?.value
+      == this.form.get("senhaConfirmacao")?.value);
   }
 
   initialize() {
@@ -74,7 +74,7 @@ export class CreatedUserComponent implements OnInit {
           Validators.maxLength(50),
         ]),
       ],
-      senha: ['', Validators.required,],
+      password: ['', Validators.required,],
       senhaConfirmacao: ['', Validators.required,],
     });
     this.url = '/home';
